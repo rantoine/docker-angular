@@ -1,0 +1,20 @@
+version: "3"
+services:
+  nx-project:
+    container_name: dev 
+    build: .
+    image: docker-angular
+    ports:
+      - "4200:4200"
+    environment:
+      SHELL: /bin/bash
+      NODE_ENV: development
+    volumes:
+      - ~/.gitconfig:/etc/gitconfig 
+      - ./package.json:/app/package.json 
+      - ./tsconfig.json:/app/tsconfig.json   
+      - ./workspace.json:/app/workspace.json       
+      - ./apps:/app/apps:cached 
+      - ./libs:/app/libs:cached  
+      - ./tools:/app/tools:cached 
+    entrypoint: nx serve internal-desktop --watch --host 0.0.0.0 --poll 60000
